@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 form-container">
+                <h2>Registration</h2>
+                <form id="registration-form" method="POST">
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" class="form-control" id="full-name" name="full-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm-password" name="confirm-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="verification-code">Verification Code</label>
+                                <input type="text" class="form-control" id="verification-code" name="verification-code" required>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-secondary" id="send-verification-btn">Send Code</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="6Le8KB4nAAAAAAAgeSo4mD501aRbta-oUMv73bky"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="register-btn">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lắng nghe sự kiện submit của biểu mẫu đăng ký
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Ngăn chặn hành vi mặc định của sự kiện submit
+
+            // Kiểm tra xem reCAPTCHA đã được xác nhận
+            if (grecaptcha && grecaptcha.getResponse().length !== 0) {
+                // Lấy giá trị của các trường đăng ký
+                var fullName = document.getElementById('full-name').value;
+                var password = document.getElementById('password').value;
+                var confirmPassword = document.getElementById('confirm-password').value;
+                var email = document.getElementById('email').value;
+                var verificationCode = document.getElementById('verification-code').value;
+
+                // Kiểm tra tính hợp lệ của thông tin đăng ký
+                if (validateRegistration(fullName, password, confirmPassword, email, verificationCode)) {
+                    // Gửi yêu cầu đăng ký đến máy chủ
+                    register(fullName, password, email);
+                }
+            } else {
+                alert('Vui lòng kiểm tra reCAPTCHA');
+            }
+        });
+
+        // Lắng nghe sự kiện click nút "Send Code"
+        document.getElementById('send-verification-btn').addEventListener('click', function() {
+            var email = document.getElementById('email').value;
+            sendVerificationCode(email);
+        });
+
+        function validateRegistration(fullName, password, confirmPassword, email, verificationCode) {
+            // Kiểm tra tính hợp lệ của thông tin đăng ký
+            if (fullName.trim() === '') {
+                alert('Vui lòng nhập họ tên');
+                return false;
+            }
+            if (password.trim() === '') {
+                alert('Vui lòng nhập mật khẩu');
+                return false;
+            }
+            if (password !== confirmPassword) {
+                alert('Mật khẩu xác nhận không khớp');
+                return false;
+            }
+            if (email.trim() === '') {
+                alert('Vui lòng nhập địa chỉ email');
+                return false;
+            }
+            if (verificationCode.trim() === '') {
+                alert('Vui lòng nhập mã kiểm tra');
+                return false;
+            }
+            return true;
+        }
+
+        function sendVerificationCode(email) {
+            // Gửi yêu cầu gửi mã kiểm tra qua email
+            fetch('/send-verification-code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Mã kiểm tra đã được gửi qua email');
+                } else {
+                    alert('Lỗi: Không thể gửi mã kiểm tra');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert('Lỗi: Không thể gửi mã kiểm tra');
+            });
+        }
+
+        function register(fullName, password, email) {
+            // Gửi yêu cầu đăng ký đến máy chủ
+            fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ fullName: fullName, password: password, email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Đăng ký thành công');
+                } else {
+                    alert('Lỗi: Không thể đăng ký');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi:', error);
+                alert('Lỗi: Không thể đăng ký');
+            });
+        }
+    </script>
+</body>
+</html>

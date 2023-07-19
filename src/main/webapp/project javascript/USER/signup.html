@@ -17,6 +17,10 @@
     <script async defer crossorigin="anonymous"src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v7.0"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">   
+    <script
+	src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+	async defer>
+</script>
 </head>
 <body>
     <div class="container-fluid header">
@@ -93,16 +97,18 @@
         </div></div>
         <div class="container sign-up banner bg-white text-center">
                 
-            <div class="register">
+            <div class="register" id="login-form">
                 <h1>Đăng Nhập</h1>
                 <hr>
                 <label for="username"><b>Tên đăng nhập (*) </b></label>
                 <input type="text" placeholder="Username" name="username" id="name">
                 <label for="password"><b>password (*) </b></label>
                 <input type="password" placeholder="********" name="password" id="password">
+                
+			<div id="g-recaptcha" data-callback="recaptchaCallback"></div>
                 <hr>
                 <p class="text-start test">Bằng cách đăng nhập vào tài khoản của bạn, bạn đồng ý với <span class="text-primary">Chính sách bảo mật & Cookie</span>  và <span class="text-primary">Điều khoản và Điều kiện</span> của chúng tôi.</p>
-                <button type="submit" class="submit" onclick="checksignup()">Đăng nhập</button>
+                <button type="submit" class="submit">Đăng nhập</button>
                 <p>Quên mật khẩu?</p>
             </div>
             <div class="register login">
@@ -115,7 +121,27 @@
         
      </div>
 
-
+<script>
+var onloadCallback = function() {
+    grecaptcha.render('g-recaptcha', {
+        'sitekey' : '6Le8KB4nAAAAAAAgeSo4mD501aRbta-oUMv73bky'
+    });
+};
+document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+    if (grecaptcha && grecaptcha.getResponse().length !== 0) {
+    	if ((document.getElementById("name").value == "") || (document.getElementById("password").value == "")) {
+    		$(".require-login").css("display", "block");
+    	}
+    	else {
+    		$(".require-login").css("display", "none");
+    		signUp();
+    	}
+    } else {
+        alert('Vui lòng kiểm tra reCAPTCHA');
+    }
+});
+</script>
     <div class="container-fluid bg-pink">
 
 

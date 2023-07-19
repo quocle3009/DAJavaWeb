@@ -3,7 +3,7 @@
 <head>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-<title>TRANG CHỦ</title>
+<title>TRANG CHá»¦</title>
 <link rel="stylesheet" href="../CSS/style-chitiet.css">
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <link rel="stylesheet"
@@ -34,8 +34,9 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
-        async defer>
+<script
+	src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+	async defer>
 </script>
 </head>
 <body>
@@ -57,12 +58,12 @@
 				<div id="my-nav" class="collapse navbar-collapse ">
 					<ul class="navbar-nav mr-auto header-menu">
 						<li class="nav-item active"><a class="nav-link"
-							href="../index.html">TRANG CHỦ</a></li>
+							href="../index.html">TRANG CHá»¦</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							tabindex="-1" aria-disabled="false">SẢN PHẨM HOT</a></li>
+							tabindex="-1" aria-disabled="false">Sáº¢N PHáº¨M HOT</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"> ĐỒNG GIÁ 99K
+							data-bs-toggle="dropdown" aria-expanded="false"> Äá»NG GIÃ 99K
 						</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="#">99K</a></li>
@@ -70,15 +71,15 @@
 								<li><a class="dropdown-item" href="#">299K</a></li>
 							</ul></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							tabindex="-1" aria-disabled="true">ÁO</a></li>
+							tabindex="-1" aria-disabled="true">ÃO</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							tabindex="-1" aria-disabled="true">ĐẦM</a></li>
+							tabindex="-1" aria-disabled="true">Äáº¦M</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							tabindex="-1" aria-disabled="true">VÁY</a></li>
+							tabindex="-1" aria-disabled="true">VÃY</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							tabindex="-1" aria-disabled="true">QUẦN</a></li>
+							tabindex="-1" aria-disabled="true">QUáº¦N</a></li>
 						<li class="nav-item"><a class="nav-link" href="#"
-							tabindex="-1" aria-disabled="true">LIÊN HỆ</a></li>
+							tabindex="-1" aria-disabled="true">LIÃN Há»</a></li>
 
 
 					</ul>
@@ -100,54 +101,55 @@
 
 		</div>
 	</div>
-	<div class="container sign-up banner bg-white text-center">
+	<div class="container sign-up banner bg-white text-center login-form">
 
 		<div class="register">
-			<h1>Đăng Nhập</h1>
+			<h1>ÄÄng Nháº­p</h1>
 			<hr>
-			<label for="username"><b>Họ và tên (*) </b></label> <input
-				class="email" type="text" id="hotend" placeholder="Họ tên">
-			<label for="username"><b>Tên đăng nhập (*) </b></label> <input
+			<label for="username"><b>Há» vÃ  tÃªn (*) </b></label> <input
+				class="email" type="text" id="hotend" placeholder="Há» tÃªn">
+			<label for="username"><b>TÃªn ÄÄng nháº­p (*) </b></label> <input
 				class="email mt-3" type="text" id="usernamed" placeholder="Username">
-			<label for="username"><b>Mật khẩu (*) </b></label> <input
+			<label for="username"><b>Máº­t kháº©u (*) </b></label> <input
 				class="email mt-3" type="password" id="passwordd"
-				placeholder="Mật Khẩu"> <label for="username"><b>Email
+				placeholder="Máº­t Kháº©u"> <label for="username"><b>Email
 					(*) </b></label> <input class="email mt-3" type="text" id="emaild"
 				placeholder="Email">
 
-<div id="g-recaptcha" data-callback="recaptchaCallback"></div>
+			<div id="g-recaptcha" data-callback="recaptchaCallback"></div>
+			<button type="submit" class="submit" id='submit-btn'
+				onclick="checkSignin()">ÄÄNG KÃ</button>
+
+
+
 <script>
 var onloadCallback = function() {
     grecaptcha.render('g-recaptcha', {
         'sitekey' : '6Le8KB4nAAAAAAAgeSo4mD501aRbta-oUMv73bky'
     });
 };
-var recaptchaCallback = function () {
-    let submit = document.getElementById('submit')
-    submit.classList.remove('disabled');
-}
-form = document.getElementById('dmca-report-form');
-form.addEventListener('submit', function (e){
+document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault(); // NgÄn cháº·n hÃ nh vi máº·c Äá»nh cá»§a sá»± kiá»n submit
+    
+    // Kiá»m tra xem reCAPTCHA ÄÃ£ ÄÆ°á»£c xÃ¡c nháº­n
     if (grecaptcha && grecaptcha.getResponse().length !== 0) {
-        this.submit();
+        // Láº¥y giÃ¡ trá» cá»§a tÃªn ÄÄng nháº­p vÃ  máº­t kháº©u
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        
+        // Gá»­i yÃªu cáº§u ÄÄng nháº­p Äáº¿n mÃ¡y chá»§ (giáº£ sá»­ báº¡n cÃ³ má»t hÃ m xá»­ lÃ½ ÄÄng nháº­p táº¡i ÄÃ¢y)
+        login(username, password);
     } else {
-        alert('Please check captcha');
+        alert('Vui lÃ²ng kiá»m tra reCAPTCHA');
     }
-    e.preventDefault();
-})
+});
 </script>
-			<button type="submit" class="submit" onclick="checkSignin()">ĐĂNG
-				KÝ</button>
-  
 
-
-  
-  
 		</div>
 		<div class="register login">
 			<p id="thu">..........</p>
 			<p>
-				Bạn đã có tài khoản?<a href="signup.html">Đăng Nhập.</a>
+				Báº¡n ÄÃ£ cÃ³ tÃ i khoáº£n?<a href="signup.html">ÄÄng Nháº­p.</a>
 			</p>
 		</div>
 
@@ -164,36 +166,36 @@ form.addEventListener('submit', function (e){
 		<div class="container footer">
 			<div class="row">
 				<div class="col-md-3 time-footer">
-					<h3>Công ty TNHH Davis</h3>
-					<p>Lịch làm việc: T2 - T7</p>
-					<p>Sáng: 8h - 12h</p>
-					<p>Chiều : 13h30 - 17h30</p>
+					<h3>CÃ´ng ty TNHH Davis</h3>
+					<p>Lá»ch lÃ m viá»c: T2 - T7</p>
+					<p>SÃ¡ng: 8h - 12h</p>
+					<p>Chiá»u : 13h30 - 17h30</p>
 				</div>
 				<div class="col-md-3">
-					<h3>Hướng dẫn</h3>
+					<h3>HÆ°á»ng dáº«n</h3>
 					<ul class="link-footer">
-						<li><a href="#">Thanh toán</a></li>
-						<li><a href="#">Khắc laser là gì?</a></li>
-						<li><a href="#">Hướng dẫn dán da</a></li>
-						<li><a href="#">Hướng dẫn vệ sinh đồ da</a></li>
+						<li><a href="#">Thanh toÃ¡n</a></li>
+						<li><a href="#">Kháº¯c laser lÃ  gÃ¬?</a></li>
+						<li><a href="#">HÆ°á»ng dáº«n dÃ¡n da</a></li>
+						<li><a href="#">HÆ°á»ng dáº«n vá» sinh Äá» da</a></li>
 					</ul>
 				</div>
 				<div class="col-md-3">
-					<h3>Thông tin</h3>
+					<h3>ThÃ´ng tin</h3>
 					<ul class="link-footer">
 						<li><a href="#">Blogs</a></li>
-						<li><a href="#">Giới thiệu DAVIS</a></li>
-						<li><a href="#">Lưu ý cần biết</a></li>
-						<li><a href="#">Đặc quyền KHTT</a></li>
+						<li><a href="#">Giá»i thiá»u DAVIS</a></li>
+						<li><a href="#">LÆ°u Ã½ cáº§n biáº¿t</a></li>
+						<li><a href="#">Äáº·c quyá»n KHTT</a></li>
 					</ul>
 				</div>
 				<div class="col-md-3">
-					<h3>Liên hệ</h3>
+					<h3>LiÃªn há»</h3>
 					<ul class="link-footer">
-						<li><a href="#">Chính sách đổi trả</a></li>
-						<li><a href="#">Chính sách vận chuyển</a></li>
-						<li><a href="#">Chính sách bảo mật</a></li>
-						<li><a href="#">Điều khoản dịch vụ</a></li>
+						<li><a href="#">ChÃ­nh sÃ¡ch Äá»i tráº£</a></li>
+						<li><a href="#">ChÃ­nh sÃ¡ch váº­n chuyá»n</a></li>
+						<li><a href="#">ChÃ­nh sÃ¡ch báº£o máº­t</a></li>
+						<li><a href="#">Äiá»u khoáº£n dá»ch vá»¥</a></li>
 					</ul>
 				</div>
 			</div>
@@ -203,12 +205,12 @@ form.addEventListener('submit', function (e){
 			<div class="row footer-contact">
 				<div class="col-md-3">
 					<i class="fa-solid fa-house-chimney"></i>
-					<p>Hà Nội: Số 45 Ngõ 199 Hồ Tùng Mậu, P. Cầu Diễn, Q. Nam Từ
-						Liêm</p>
+					<p>HÃ  Ná»i: Sá» 45 NgÃµ 199 Há» TÃ¹ng Máº­u, P. Cáº§u Diá»n, Q. Nam Tá»«
+						LiÃªm</p>
 				</div>
 				<div class="col-md-3">
 					<i class="fa-solid fa-house-chimney"></i>
-					<p>Hồ Chí Minh: 29 Đường Phan Chu Trinh, P Hiệp Phú, Quận 9</p>
+					<p>Há» ChÃ­ Minh: 29 ÄÆ°á»ng Phan Chu Trinh, P Hiá»p PhÃº, Quáº­n 9</p>
 				</div>
 				<div class="col-md-3">
 					<i class="fa-solid fa-envelope"></i>
@@ -231,8 +233,8 @@ form.addEventListener('submit', function (e){
 					<img src="IMAGE/dathongbao.webp" style="max-width: 150px;">
 				</div>
 				<div class="col-md-8 text-start">
-					<p>Giấy CNĐKKD: 0313026493 - Ngày Cấp: 24/11/2014 - Nơi Cấp: Sở
-						kế hoạch và đầu tư</p>
+					<p>Giáº¥y CNÄKKD: 0313026493 - NgÃ y Cáº¥p: 24/11/2014 - NÆ¡i Cáº¥p: Sá»
+						káº¿ hoáº¡ch vÃ  Äáº§u tÆ°</p>
 				</div>
 			</div>
 		</div>
